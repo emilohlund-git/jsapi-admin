@@ -103,12 +103,10 @@ const Create = (props: Props) => {
             }
           },
         },
-        refetchQueries: ['GetPartners']
+        refetchQueries: ['ROOT_QUERY']
       }).then(() => {
         setCreateLoading(false);
-        setTimeout(() => {
-          router.push('/partners');
-        }, 3000);
+        router.push('/partners');
       });
     }
   }
@@ -182,4 +180,3 @@ const Create = (props: Props) => {
 
 export const getServerSideProps = withPageAuthRequired();
 
-export default Create

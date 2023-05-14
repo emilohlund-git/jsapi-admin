@@ -103,12 +103,10 @@ const Create = (props: Props) => {
           }
         },
       },
-      refetchQueries: ['GetFacilities']
+      refetchQueries: ['ROOT_QUERY']
     }).then(() => {
       setCreateLoading(false);
-      setTimeout(() => {
-        router.push('/facilities');
-      }, 3000);
+      router.push('/facilities');
     });
   }
 

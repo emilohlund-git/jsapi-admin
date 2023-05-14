@@ -158,12 +158,10 @@ const Create = (props: Props) => {
           }
         },
       },
-      refetchQueries: ['GetHorses']
+      refetchQueries: ['ROOT_QUERY']
     }).then(() => {
       setCreateLoading(false);
-      setTimeout(() => {
-        router.push('/horses');
-      }, 3000);
+      router.push('/horses');
     });
   }
 
@@ -297,4 +295,3 @@ const Create = (props: Props) => {
 
 export const getServerSideProps = withPageAuthRequired();
 
-export default Create
