@@ -232,7 +232,7 @@ const Edit = (props: Props) => {
               }
             },
             horseWhereUnique: {
-              id: data.getHorses[0].id
+              id: router.query.id
             }
           },
           refetchQueries: ['GetHorses']

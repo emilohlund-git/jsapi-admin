@@ -159,7 +159,7 @@ const Edit = (props: Props) => {
               }
             },
             partnerWhereUnique: {
-              id: data.getPartners[0].id
+              id: router.query.id
             }
           },
           refetchQueries: ['GetPartners']
