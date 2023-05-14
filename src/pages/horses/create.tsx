@@ -161,7 +161,9 @@ const Create = (props: Props) => {
       refetchQueries: ['GetHorses']
     }).then(() => {
       setCreateLoading(false);
-      router.push('/horses');
+      setTimeout(() => {
+        router.push('/horses');
+      }, 3000);
     });
   }
 

@@ -106,7 +106,9 @@ const Create = (props: Props) => {
         refetchQueries: ['GetPartners']
       }).then(() => {
         setCreateLoading(false);
-        router.push('/partners');
+        setTimeout(() => {
+          router.push('/partners');
+        }, 3000);
       });
     }
   }

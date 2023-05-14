@@ -106,7 +106,9 @@ const Create = (props: Props) => {
       refetchQueries: ['GetFacilities']
     }).then(() => {
       setCreateLoading(false);
-      router.push('/facilities');
+      setTimeout(() => {
+        router.push('/facilities');
+      }, 3000);
     });
   }
 
