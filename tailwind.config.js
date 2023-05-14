@@ -14,5 +14,22 @@ module.exports = {
       },
     },
   },
-  plugins: [],
-}
+  daisyui: {
+    themes: [
+      {
+        jemmastables: {
+          primary: '#b7301b',
+          secondary: '#f794e8',
+          accent: '#c2ff82',
+          neutral: '#262D36',
+          'base-100': '#303A4B',
+          info: '#6BBDD1',
+          success: '#66EADF',
+          warning: '#CE8A03',
+          error: '#F95D89',
+        },
+      },
+    ],
+  },
+  plugins: [require('@tailwindcss/typography'), require('daisyui')],
+};
