@@ -132,7 +132,7 @@ const Edit = (props: Props) => {
       formData.append('file', e.target.files[0]);
       formData.append('folder', data.getFacilities[0].name.replaceAll(" ", ""));
 
-      const result = await fetch('http://localhost:3000/image/upload', {
+      const result = await fetch(`${process.env.NEXT_PUBLIC_API_BASEURL}/image/upload`, {
         method: 'POST',
         body: formData
       });
