@@ -1,5 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import Image from "next/image";
+import { useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 
@@ -40,10 +41,12 @@ const EditableImage: React.FC<Props> = ({ image, alt, horseId, facilityId, partn
   const [deleteImage, {
     loading
   }] = useMutation(deleteImageMutation);
+  const [profileLoading, setProfileLoading] = useState(false);
 
   console.log(image);
 
   const handleSetProfile = async () => {
+    setProfileLoading(true);
     const result = await setProfile({
       variables: {
         imageWhereUniqueInput: {
@@ -61,7 +64,7 @@ const EditableImage: React.FC<Props> = ({ image, alt, horseId, facilityId, partn
       },
       refetchQueries: ['GetHorses', 'GetFacilities', 'GetPartners']
     })
-
+    setProfileLoading(false);
     console.log(result);
   }
 
@@ -89,8 +92,10 @@ const EditableImage: React.FC<Props> = ({ image, alt, horseId, facilityId, partn
       {image ?
         <>
           <div className="flex self-end gap-2 z-10 absolute bottom-2 right-2">
-            <button onClick={() => handleSetProfile()} disabled={image.profile} className="btn">
-              <CgProfile className="text-xl" />
+            <button onClick={() => handleSetProfile()} disabled={image.profile} className={`btn ${profileLoading ? 'loading' : ''}`}>
+              {profileLoading ? <></> :
+                <CgProfile className="text-xl" />
+              }
             </button>
             <button onClick={() => handleDelete()} className={`btn btn-error ${loading ? 'loading' : ''}`}>
               <AiOutlineDelete className="text-xl" />
