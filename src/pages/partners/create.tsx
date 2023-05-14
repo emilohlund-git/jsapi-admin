@@ -180,3 +180,4 @@ const Create = (props: Props) => {
 
 export const getServerSideProps = withPageAuthRequired();
 
+export default Create;
