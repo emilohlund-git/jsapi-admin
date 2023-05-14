@@ -40,15 +40,21 @@ mutation DeleteCategory($horseCategoryWhereUniqueInput: HorseCategoryWhereUnique
 `
 
 const SettingsBadge: React.FC<Props> = ({ text, id, type }) => {
-  const [deleteColor] = useMutation(deleteColorMutation, {
+  const [deleteColor, {
+    loading: deleteColorLoading
+  }] = useMutation(deleteColorMutation, {
     refetchQueries: ['GetColors']
   })
 
-  const [deleteGender] = useMutation(deleteGenderMutation, {
+  const [deleteGender, {
+    loading: deleteGenderLoading
+  }] = useMutation(deleteGenderMutation, {
     refetchQueries: ['GetGenders']
   })
 
-  const [deleteCategory] = useMutation(deleteCategoryMutation, {
+  const [deleteCategory, {
+    loading: deleteCategoryLoading
+  }] = useMutation(deleteCategoryMutation, {
     refetchQueries: ['GetCategories']
   })
 
@@ -89,13 +95,13 @@ const SettingsBadge: React.FC<Props> = ({ text, id, type }) => {
   }
 
   return (
-    <div className="w-fit h-8 bg-slate-600 px-4 flex items-center justify-center gap-x-3 rounded-lg">
+    <div className={`w-fit h-8 bg-slate-600 px-4 flex items-center justify-center gap-x-3 rounded-lg ${deleteColorLoading || deleteCategoryLoading || deleteGenderLoading ? 'bg-error ' : ''} transition-all`}>
       {type === 'Color' ?
-        <svg onClick={() => handleDeleteColor()} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-4 h-4 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        <svg onClick={() => handleDeleteColor()} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className={`inline-block w-4 h-4 stroke-current cursor-pointer`}><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         : type === 'Category' ?
-          <svg onClick={() => handleDeleteCategory()} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-4 h-4 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          <svg onClick={() => handleDeleteCategory()} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-4 h-4 stroke-current cursor-pointer"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           : type === 'Gender' ?
-            <svg onClick={() => handleDeleteGender()} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-4 h-4 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            <svg onClick={() => handleDeleteGender()} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-4 h-4 stroke-current cursor-pointer"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             : <></>
       }
       {text}

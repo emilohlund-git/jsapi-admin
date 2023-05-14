@@ -80,13 +80,19 @@ const Settings: React.FC<Props> = () => {
   const { data: colorData, loading: colorLoading, error: colorError } = useQuery(colorQuery);
   const { data: genderData, loading: genderLoading, error: genderError } = useQuery(genderQuery);
   const { data: categoryData, loading: categoryLoading, error: categoryError } = useQuery(categoryQuery);
-  const [createColor] = useMutation(createColorMutation, {
+  const [createColor, {
+    loading: createColorLoading
+  }] = useMutation(createColorMutation, {
     refetchQueries: [colorQuery]
   });
-  const [createGender] = useMutation(createGenderMutation, {
+  const [createGender, {
+    loading: createGenderLoading
+  }] = useMutation(createGenderMutation, {
     refetchQueries: [genderQuery]
   })
-  const [createCategory] = useMutation(createCategoryMutation, {
+  const [createCategory, {
+    loading: createCategoryLoading
+  }] = useMutation(createCategoryMutation, {
     refetchQueries: [categoryQuery]
   })
 
@@ -156,8 +162,10 @@ const Settings: React.FC<Props> = () => {
         </div>
         <div className="input-group">
           <input value={color} onChange={(e) => setColor(e.target.value)} type="text" placeholder="Color" className="input input-bordered w-full" />
-          <button onClick={() => handleCreateColor()} className="btn btn-square">
-            <IoAdd className="color-white" />
+          <button onClick={() => handleCreateColor()} className={`btn btn-square ${createColorLoading ? 'loading' : ''}`}>
+            {createColorLoading ? <></> :
+              <IoAdd className="color-white" />
+            }
           </button>
         </div>
       </div>
@@ -169,8 +177,10 @@ const Settings: React.FC<Props> = () => {
         </div>
         <div className="input-group">
           <input value={gender} onChange={(e) => setGender(e.target.value)} type="text" placeholder="Gender" className="input input-bordered w-full" />
-          <button onClick={() => handleCreateGender()} className="btn btn-square">
-            <IoAdd className="color-white" />
+          <button onClick={() => handleCreateGender()} className={`btn btn-square ${createGenderLoading ? 'loading' : ''}`}>
+            {createGenderLoading ? <></> :
+              <IoAdd className="color-white" />
+            }
           </button>
         </div>
       </div>
@@ -182,8 +192,10 @@ const Settings: React.FC<Props> = () => {
         </div>
         <div className="input-group">
           <input value={category} onChange={(e) => setCategory(e.target.value)} type="text" placeholder="Category" className="input input-bordered w-full" />
-          <button onClick={() => handleCreateCategory()} className="btn btn-square">
-            <IoAdd className="color-white" />
+          <button onClick={() => handleCreateCategory()} className={`btn btn-square ${createCategoryLoading ? 'loading' : ''}`}>
+            {createCategoryLoading ? <></> :
+              <IoAdd className="color-white" />
+            }
           </button>
         </div>
       </div>
