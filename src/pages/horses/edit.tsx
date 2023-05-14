@@ -344,7 +344,15 @@ const Edit = (props: Props) => {
               </label>
               <label className="input-group">
                 <select defaultValue={horse.color} onChange={(e) => setUpdateData({ ...updateData, color: e.target.value })} className="select select-bordered w-full">
-                  {colorData.getColors.map((color: any, index: any) => {
+                  {colorData.getColors.sort((a: any, b: any) => {
+                    if (a.color < b.color) {
+                      return -1;
+                    }
+                    if (a.color > b.color) {
+                      return 1;
+                    }
+                    return 0;
+                  }).map((color: any, index: any) => {
                     return (
                       <option value={color.color} key={color.id}>{color.color}</option>
                     )
@@ -358,7 +366,15 @@ const Edit = (props: Props) => {
               </label>
               <label className="input-group">
                 <select defaultValue={horse.gender} onChange={(e) => setUpdateData({ ...updateData, gender: e.target.value })} className="select select-bordered w-full">
-                  {genderData.getGenders.map((gender: any, index: any) => {
+                  {genderData.getGenders.sort((a: any, b: any) => {
+                    if (a.gender < b.gender) {
+                      return -1;
+                    }
+                    if (a.gender > b.gender) {
+                      return 1;
+                    }
+                    return 0;
+                  }).map((gender: any, index: any) => {
                     return (
                       <option value={gender.gender} key={gender.id}>{gender.gender}</option>
                     )
@@ -372,7 +388,15 @@ const Edit = (props: Props) => {
               </label>
               <label className="input-group">
                 <select defaultValue={horse.category} onChange={(e) => setUpdateData({ ...updateData, category: e.target.value })} className="select select-bordered w-full">
-                  {categoryData.getCategories.map((category: any, index: any) => {
+                  {categoryData.getCategories.sort((a: any, b: any) => {
+                    if (a.category < b.category) {
+                      return -1;
+                    }
+                    if (a.category > b.category) {
+                      return 1;
+                    }
+                    return 0;
+                  }).map((category: any, index: any) => {
                     return (
                       <option value={category.category} key={category.id}>{category.category}</option>
                     )
