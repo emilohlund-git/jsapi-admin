@@ -3,6 +3,7 @@ import LoadingSpinner from "@/components/LoadingSpinner"
 import { gql, useMutation, useQuery } from "@apollo/client"
 import { withPageAuthRequired } from "@auth0/nextjs-auth0"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { FormEvent, useState } from "react"
 import { FaHorseHead } from "react-icons/fa"
 
@@ -67,6 +68,7 @@ mutation CreateHorse($horseCreateInput: HorseCreateInput!) {
 `
 
 const Create = (props: Props) => {
+  const router = useRouter();
   const [files, setFiles] = useState<DropFile[]>([]);
   const [uploadInfo, setUploadInfo] = useState('');
   const [createLoading, setCreateLoading] = useState(false);
@@ -172,6 +174,8 @@ const Create = (props: Props) => {
       });
       setFiles([]);
     });
+
+    router.push('/horses');
   }
 
   return (

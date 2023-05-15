@@ -2,6 +2,7 @@ import Dropzone, { DropFile } from "@/components/Dropzone"
 import { gql, useMutation } from "@apollo/client"
 import { withPageAuthRequired } from "@auth0/nextjs-auth0"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { FormEvent, useState } from "react"
 import { FiUsers } from "react-icons/fi"
 
@@ -29,6 +30,7 @@ mutation CreatePartner($partnerCreateInput: PartnerCreateInput!) {
 `
 
 const Create = (props: Props) => {
+  const router = useRouter();
   const [files, setFiles] = useState<DropFile[]>([]);
   const [uploadInfo, setUploadInfo] = useState('');
 
@@ -113,6 +115,7 @@ const Create = (props: Props) => {
         setFiles([]);
       });
     }
+    router.push("/partners");
   }
 
   return (

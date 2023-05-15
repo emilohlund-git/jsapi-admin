@@ -112,8 +112,8 @@ const Create = (props: Props) => {
         description: '',
       });
       setFiles([]);
-      router.push("/facilities");
     });
+    router.push("/facilities");
   }
 
   return (

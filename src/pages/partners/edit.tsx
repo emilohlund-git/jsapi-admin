@@ -11,8 +11,8 @@ import { FiUsers } from "react-icons/fi"
 type Props = {}
 
 const getPartnerWhereQuery = gql`
-query GetPartners {
-  getPartners {
+query GetPartners($getPartnerArgs: GetPartnersArgs) {
+  getPartners(GetPartnerArgs: $getPartnerArgs) {
     createdAt
     description
     id
@@ -20,9 +20,9 @@ query GetPartners {
       createdAt
       fileId
       id
+      profile
       updatedAt
       url
-      profile
     }
     name
     updatedAt
