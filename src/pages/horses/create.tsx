@@ -3,7 +3,6 @@ import LoadingSpinner from "@/components/LoadingSpinner"
 import { gql, useMutation, useQuery } from "@apollo/client"
 import { withPageAuthRequired } from "@auth0/nextjs-auth0"
 import Link from "next/link"
-import { useRouter } from "next/router"
 import { FormEvent, useState } from "react"
 import { FaHorseHead } from "react-icons/fa"
 
@@ -68,7 +67,6 @@ mutation CreateHorse($horseCreateInput: HorseCreateInput!) {
 `
 
 const Create = (props: Props) => {
-  const router = useRouter();
   const [files, setFiles] = useState<DropFile[]>([]);
   const [uploadInfo, setUploadInfo] = useState('');
   const [createLoading, setCreateLoading] = useState(false);
@@ -77,7 +75,7 @@ const Create = (props: Props) => {
   const { data: categoryData, loading: categoryLoading } = useQuery(categoryQuery);
   const [createHorse] = useMutation(createHorseMutation);
 
-  const [createData, setcreateData] = useState({
+  const [createData, setCreateData] = useState({
     name: '',
     nickname: '',
     birthyear: '',
@@ -158,10 +156,21 @@ const Create = (props: Props) => {
           }
         },
       },
-      refetchQueries: ['ROOT_QUERY']
+      awaitRefetchQueries: true,
+      refetchQueries: ['GetHorses']
     }).then(() => {
       setCreateLoading(false);
-      router.push('/horses');
+      setCreateData({
+        name: '',
+        nickname: '',
+        birthyear: '',
+        owner: '',
+        after: '',
+        color: '',
+        gender: '',
+        category: ''
+      });
+      setFiles([]);
     });
   }
 
@@ -204,7 +213,7 @@ const Create = (props: Props) => {
               <span className="label-text">Name</span>
             </label>
             <label className="input-group">
-              <input value={createData.name} required onChange={(e) => setcreateData({ ...createData, name: e.target.value })} type="text" placeholder={'Name..'} className="input input-bordered w-full" />
+              <input value={createData.name} required onChange={(e) => setCreateData({ ...createData, name: e.target.value })} type="text" placeholder={'Name..'} className="input input-bordered w-full" />
             </label>
           </div>
           <div className="form-control">
@@ -212,7 +221,7 @@ const Create = (props: Props) => {
               <span className="label-text">Nickname</span>
             </label>
             <label className="input-group">
-              <input value={createData.nickname} required onChange={(e) => setcreateData({ ...createData, nickname: e.target.value })} type="text" placeholder={'Nickname..'} className="input input-bordered w-full" />
+              <input value={createData.nickname} required onChange={(e) => setCreateData({ ...createData, nickname: e.target.value })} type="text" placeholder={'Nickname..'} className="input input-bordered w-full" />
             </label>
           </div>
           <div className="form-control">
@@ -220,7 +229,7 @@ const Create = (props: Props) => {
               <span className="label-text">Birthyear</span>
             </label>
             <label className="input-group">
-              <input value={createData.birthyear} required onChange={(e) => setcreateData({ ...createData, birthyear: e.target.value })} type="number" placeholder={'1957'} className="input input-bordered w-full" />
+              <input value={createData.birthyear} required onChange={(e) => setCreateData({ ...createData, birthyear: e.target.value })} type="number" placeholder={'1957'} className="input input-bordered w-full" />
             </label>
           </div>
           <div className="form-control">
@@ -228,7 +237,7 @@ const Create = (props: Props) => {
               <span className="label-text">Owner</span>
             </label>
             <label className="input-group">
-              <input value={createData.owner} required onChange={(e) => setcreateData({ ...createData, owner: e.target.value })} type="text" placeholder={'Owner..'} className="input input-bordered w-full" />
+              <input value={createData.owner} required onChange={(e) => setCreateData({ ...createData, owner: e.target.value })} type="text" placeholder={'Owner..'} className="input input-bordered w-full" />
             </label>
           </div>
           <div className="form-control">
@@ -236,7 +245,7 @@ const Create = (props: Props) => {
               <span className="label-text">After</span>
             </label>
             <label className="input-group">
-              <input value={createData.after} required onChange={(e) => setcreateData({ ...createData, after: e.target.value })} type="text" placeholder={'After..'} className="input input-bordered w-full" />
+              <input value={createData.after} required onChange={(e) => setCreateData({ ...createData, after: e.target.value })} type="text" placeholder={'After..'} className="input input-bordered w-full" />
             </label>
           </div>
           <div className="form-control">
@@ -244,7 +253,7 @@ const Create = (props: Props) => {
               <span className="label-text">Color</span>
             </label>
             <label className="input-group">
-              <select defaultValue={''} required onChange={(e) => setcreateData({ ...createData, color: e.target.value })} className="select select-bordered w-full">
+              <select defaultValue={''} required onChange={(e) => setCreateData({ ...createData, color: e.target.value })} className="select select-bordered w-full">
                 <option value='' disabled>Choose color</option>
                 {colorData.getColors.map((color: any, index: any) => {
                   return (
@@ -259,7 +268,7 @@ const Create = (props: Props) => {
               <span className="label-text">Gender</span>
             </label>
             <label className="input-group">
-              <select defaultValue={''} required onChange={(e) => setcreateData({ ...createData, gender: e.target.value })} className="select select-bordered w-full">
+              <select defaultValue={''} required onChange={(e) => setCreateData({ ...createData, gender: e.target.value })} className="select select-bordered w-full">
                 <option value='' disabled>Choose gender</option>
                 {genderData.getGenders.map((gender: any, index: any) => {
                   return (
@@ -274,7 +283,7 @@ const Create = (props: Props) => {
               <span className="label-text">Category</span>
             </label>
             <label className="input-group">
-              <select defaultValue={''} required onChange={(e) => setcreateData({ ...createData, category: e.target.value })} className="select select-bordered w-full">
+              <select defaultValue={''} required onChange={(e) => setCreateData({ ...createData, category: e.target.value })} className="select select-bordered w-full">
                 <option value='' disabled>Choose category</option>
                 {categoryData.getCategories.map((category: any, index: any) => {
                   return (

@@ -34,7 +34,7 @@ const Create = (props: Props) => {
   const [createLoading, setCreateLoading] = useState(false);
   const [createFacility] = useMutation(createFacilityMutation);
 
-  const [createData, setcreateData] = useState({
+  const [createData, setCreateData] = useState({
     name: '',
     description: '',
   })
@@ -103,10 +103,16 @@ const Create = (props: Props) => {
           }
         },
       },
-      refetchQueries: ['ROOT_QUERY']
+      awaitRefetchQueries: true,
+      refetchQueries: ['GetFacilities']
     }).then(() => {
       setCreateLoading(false);
-      router.push('/facilities');
+      setCreateData({
+        name: '',
+        description: '',
+      });
+      setFiles([]);
+      router.push("/facilities");
     });
   }
 
@@ -149,7 +155,7 @@ const Create = (props: Props) => {
               <span className="label-text">Name</span>
             </label>
             <label className="input-group">
-              <input value={createData.name} required onChange={(e) => setcreateData({ ...createData, name: e.target.value })} type="text" placeholder={'Name..'} className="input input-bordered w-full" />
+              <input value={createData.name} required onChange={(e) => setCreateData({ ...createData, name: e.target.value })} type="text" placeholder={'Name..'} className="input input-bordered w-full" />
             </label>
           </div>
           <div className="form-control">
@@ -157,7 +163,7 @@ const Create = (props: Props) => {
               <span className="label-text">Description</span>
             </label>
             <label className="input-group">
-              <textarea value={createData.description} required onChange={(e) => setcreateData({ ...createData, description: e.target.value })} placeholder={'Description..'} className="textarea textarea-bordered w-full" />
+              <textarea value={createData.description} required onChange={(e) => setCreateData({ ...createData, description: e.target.value })} placeholder={'Description..'} className="textarea textarea-bordered w-full" />
             </label>
           </div>
           <div className="fixed flex bottom-20 right-4">
